@@ -15,9 +15,12 @@ public class Main {
         carDao.save(new Car("Seat", "Leon", "Green", LocalDate.now()));
 //        carDao.find(new CarFilter()).stream()
 //                .forEach(System.out::println);
-        carDao.find(new CarFilter("seat", "leon")).forEach(System.out::println);
-
-        List< Student > students = studentDao.find();
-        students.forEach(s -> System.out.println(s.getFirstName()));
+        carDao.find(CarFilter.builder().startDate(LocalDate.of(2022, 06, 10)).finishDate(LocalDate.of(2024, 06, 12)).build()).forEach(System.out::println);
+        System.out.println("-------------------------------------------------------------------------------");
+        carDao.findUsingCriteriaBuilder(
+                        CarFilter.builder()
+                                .model("leon")
+                                .build())
+                .forEach(System.out::println);
     }
 }
